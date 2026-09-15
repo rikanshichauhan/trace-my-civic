@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CitizenRouteImport } from './routes/citizen'
+import { Route as EvidenceRouteImport } from './routes/evidence'
+import { Route as GovernmentRouteImport } from './routes/government'
+import { Route as MyComplaintsRouteImport } from './routes/my-complaints'
+import { Route as OfficialReportRouteImport } from './routes/official-report'
+import { Route as ReopenRouteImport } from './routes/reopen'
+import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as VerifyProofRouteImport } from './routes/verify-proof'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CitizenRoute = CitizenRouteImport.update({
+  id: '/citizen',
+  path: '/citizen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvidenceRoute = EvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovernmentRoute = GovernmentRouteImport.update({
+  id: '/government',
+  path: '/government',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyComplaintsRoute = MyComplaintsRouteImport.update({
+  id: '/my-complaints',
+  path: '/my-complaints',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfficialReportRoute = OfficialReportRouteImport.update({
+  id: '/official-report',
+  path: '/official-report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReopenRoute = ReopenRouteImport.update({
+  id: '/reopen',
+  path: '/reopen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyProofRoute = VerifyProofRouteImport.update({
+  id: '/verify-proof',
+  path: '/verify-proof',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/citizen': typeof CitizenRoute
+  '/evidence': typeof EvidenceRoute
+  '/government': typeof GovernmentRoute
+  '/my-complaints': typeof MyComplaintsRoute
+  '/official-report': typeof OfficialReportRoute
+  '/reopen': typeof ReopenRoute
+  '/timeline': typeof TimelineRoute
+  '/verify-proof': typeof VerifyProofRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/citizen': typeof CitizenRoute
+  '/evidence': typeof EvidenceRoute
+  '/government': typeof GovernmentRoute
+  '/my-complaints': typeof MyComplaintsRoute
+  '/official-report': typeof OfficialReportRoute
+  '/reopen': typeof ReopenRoute
+  '/timeline': typeof TimelineRoute
+  '/verify-proof': typeof VerifyProofRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/citizen': typeof CitizenRoute
+  '/evidence': typeof EvidenceRoute
+  '/government': typeof GovernmentRoute
+  '/my-complaints': typeof MyComplaintsRoute
+  '/official-report': typeof OfficialReportRoute
+  '/reopen': typeof ReopenRoute
+  '/timeline': typeof TimelineRoute
+  '/verify-proof': typeof VerifyProofRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/citizen'
+    | '/evidence'
+    | '/government'
+    | '/my-complaints'
+    | '/official-report'
+    | '/reopen'
+    | '/timeline'
+    | '/verify-proof'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/citizen'
+    | '/evidence'
+    | '/government'
+    | '/my-complaints'
+    | '/official-report'
+    | '/reopen'
+    | '/timeline'
+    | '/verify-proof'
+  id:
+    | '__root__'
+    | '/'
+    | '/citizen'
+    | '/evidence'
+    | '/government'
+    | '/my-complaints'
+    | '/official-report'
+    | '/reopen'
+    | '/timeline'
+    | '/verify-proof'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CitizenRoute: typeof CitizenRoute
+  EvidenceRoute: typeof EvidenceRoute
+  GovernmentRoute: typeof GovernmentRoute
+  MyComplaintsRoute: typeof MyComplaintsRoute
+  OfficialReportRoute: typeof OfficialReportRoute
+  ReopenRoute: typeof ReopenRoute
+  TimelineRoute: typeof TimelineRoute
+  VerifyProofRoute: typeof VerifyProofRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/citizen': {
+      id: '/citizen'
+      path: '/citizen'
+      fullPath: '/citizen'
+      preLoaderRoute: typeof CitizenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evidence': {
+      id: '/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof EvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/government': {
+      id: '/government'
+      path: '/government'
+      fullPath: '/government'
+      preLoaderRoute: typeof GovernmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-complaints': {
+      id: '/my-complaints'
+      path: '/my-complaints'
+      fullPath: '/my-complaints'
+      preLoaderRoute: typeof MyComplaintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/official-report': {
+      id: '/official-report'
+      path: '/official-report'
+      fullPath: '/official-report'
+      preLoaderRoute: typeof OfficialReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reopen': {
+      id: '/reopen'
+      path: '/reopen'
+      fullPath: '/reopen'
+      preLoaderRoute: typeof ReopenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-proof': {
+      id: '/verify-proof'
+      path: '/verify-proof'
+      fullPath: '/verify-proof'
+      preLoaderRoute: typeof VerifyProofRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CitizenRoute: CitizenRoute,
+  EvidenceRoute: EvidenceRoute,
+  GovernmentRoute: GovernmentRoute,
+  MyComplaintsRoute: MyComplaintsRoute,
+  OfficialReportRoute: OfficialReportRoute,
+  ReopenRoute: ReopenRoute,
+  TimelineRoute: TimelineRoute,
+  VerifyProofRoute: VerifyProofRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
