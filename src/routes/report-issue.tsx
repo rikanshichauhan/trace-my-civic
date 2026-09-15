@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { SiteFooter } from "@/components/civic/SiteFooter";
 import { SiteHeader } from "@/components/civic/SiteHeader";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/report-issue")({
   head: () => ({
@@ -164,7 +165,9 @@ function ReportIssuePage() {
     if (fileRef.current) fileRef.current.value = "";
   }
 
-  function onSubmit(event: React.FormEvent) {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     if (!photo) {
       setFormError("Photo evidence is mandatory. Capture a live snapshot or upload a photo.");
@@ -175,9 +178,41 @@ function ReportIssuePage() {
       return;
     }
     setFormError(null);
-    const ref = `CT-${Math.floor(10000 + Math.random() * 89999)}`;
-    setSubmitted(ref);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setSubmitting(true);
+    try {
+      let { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData.session) {
+        const { error: authError } = await supabase.auth.signInAnonymously();
+        if (authError) throw authError;
+        const refreshed = await supabase.auth.getSession();
+        sessionData = refreshed.data;
+      }
+      const userId = sessionData.session?.user.id;
+      if (!userId) throw new Error("Could not start a session.");
+
+      const ref = `CT-${Math.floor(10000 + Math.random() * 89999)}`;
+
+      const { error: insertError } = await supabase.from("complaints").insert({
+        reference_number: ref,
+        reporter_id: userId,
+        category,
+        severity,
+        landmark: landmark || null,
+        description,
+        latitude: coords?.lat ?? null,
+        longitude: coords?.lng ?? null,
+        location_accuracy: coords?.accuracy ?? null,
+        status: "submitted",
+      });
+      if (insertError) throw insertError;
+
+      setSubmitted(ref);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : "Could not submit. Try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const stamp = now.toLocaleString("en-IN", { hour12: false });
