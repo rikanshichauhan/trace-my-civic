@@ -78,7 +78,7 @@
 <!-- FILTER TABS & SEARCH BAR -->
 <div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm mb-space-lg flex flex-col lg:flex-row items-center justify-between gap-space-sm">
 <div class="flex flex-wrap items-center gap-space-xs w-full lg:w-auto">
-<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-primary text-on-primary shadow-sm flex items-center gap-1.5" onclick="filterComplaints('all', this)" data-route="/my-complaints" role="link" data-route="/my-complaints" role="link" data-route="/my-complaints" role="link">
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-primary text-on-primary shadow-sm flex items-center gap-1.5" onclick="filterComplaints('all', this)">
 <span class="">All Complaints</span>
 <span class="font-code-sm text-code-sm opacity-90 px-1.5 py-0.2 rounded bg-surface-container-high/20">4</span>
 </button>
@@ -94,7 +94,7 @@
 <span class="">Resolved</span>
 <span class="font-code-sm text-code-sm opacity-80 px-1.5 py-0.2 rounded bg-surface-container-high/40">1</span>
 </button>
-<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" onclick="filterComplaints('reopened', this)" data-route="/reopen" role="link" data-route="/reopen" role="link" data-route="/reopen" role="link">
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" onclick="filterComplaints('reopened', this)">
 <span class="">Reopened</span>
 <span class="font-code-sm text-code-sm opacity-80 px-1.5 py-0.2 rounded bg-surface-container-high/40">1</span>
 </button>
@@ -174,15 +174,15 @@
 </div>
 <!-- Action Buttons -->
 <div class="pt-space-sm flex flex-wrap items-center gap-space-sm">
-<button class="px-space-md py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-space-xs shadow-sm" onclick="openVerificationModal()" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link">
+<button class="px-space-md py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-space-xs shadow-sm" data-route="/verify-proof" role="link">
 <span class="material-symbols-outlined text-[18px] text-secondary-fixed">fact_check</span>
 <span class="">Verify Resolution Proof</span>
 </button>
-<button class="px-space-md py-space-sm rounded bg-surface-container-low text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-8821')" data-route="/timeline" role="link" data-route="/timeline" role="link" data-route="/timeline" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container-low text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-8821')">
 <span class="material-symbols-outlined text-[18px]">history</span>
 <span class="">View Full Timeline</span>
 </button>
-<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-8821')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-8821')">
 <span class="material-symbols-outlined text-[18px]">file_download</span>
 <span class="">Official Report</span>
 </button>
@@ -220,7 +220,7 @@
 <!-- Verification Action Reminder -->
 <div class="mt-space-sm bg-surface-container-lowest p-space-xs px-space-sm rounded flex items-center justify-between">
 <span class="font-body-sm text-body-sm text-on-surface-variant">Tap to inspect resolution details</span>
-<button class="text-secondary font-label-md text-label-md hover:underline font-semibold" onclick="openVerificationModal()" data-route="/evidence" role="link" data-route="/evidence" role="link" data-route="/evidence" role="link">
+<button class="text-secondary font-label-md text-label-md hover:underline font-semibold" data-route="/evidence" role="link">
                 Inspect 2 Photos →
               </button>
 </div>
@@ -334,11 +334,11 @@
 
 <!-- Actions -->
 <div class="pt-space-xs flex flex-wrap items-center gap-space-sm">
-<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-9104')" data-route="/timeline" role="link" data-route="/timeline" role="link" data-route="/timeline" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-9104')">
 <span class="material-symbols-outlined text-[18px]">timeline</span>
 <span class="">View Details &amp; Timeline</span>
 </button>
-<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-9104')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-9104')">
 <span class="material-symbols-outlined text-[18px]">download</span>
 <span class="">Download Report</span>
 </button>
@@ -428,7 +428,7 @@
 <span class="material-symbols-outlined text-[18px]">visibility</span>
 <span class="">View Resolved Case File</span>
 </button>
-<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-7419')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-7419')">
 <span class="material-symbols-outlined text-[18px]">receipt_long</span>
 <span class="">Download Official Certificate</span>
 </button>
@@ -516,11 +516,11 @@
 <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">crisis_alert</span>
 <span class="">View Escalated Details</span>
 </button>
-<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-6950')" data-route="/reopen" role="link" data-route="/reopen" role="link" data-route="/reopen" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-6950')">
 <span class="material-symbols-outlined text-[18px]">alt_route</span>
 <span class="">Track Reopened Timeline</span>
 </button>
-<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-6950')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-6950')">
 <span class="material-symbols-outlined text-[18px]">download</span>
 <span class="">Download Report</span>
 </button>
@@ -675,12 +675,12 @@
         </button>
 <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
 <!-- Reopen Button -->
-<button class="px-space-md py-space-sm rounded bg-tertiary-container text-on-tertiary-container font-label-md text-label-md uppercase tracking-wider hover:opacity-95 transition-all flex items-center gap-1" onclick="alert('Ticket flagged for non-resolution. Escalating to PWD Executive Engineer.'); closeVerificationModal();" data-route="/reopen" role="link" data-route="/reopen" role="link" data-route="/reopen" role="link">
+<button class="px-space-md py-space-sm rounded bg-tertiary-container text-on-tertiary-container font-label-md text-label-md uppercase tracking-wider hover:opacity-95 transition-all flex items-center gap-1" onclick="alert('Ticket flagged for non-resolution. Escalating to PWD Executive Engineer.'); closeVerificationModal();">
 <span class="material-symbols-outlined text-[18px]">replay</span>
 <span class="">Reject &amp; Reopen</span>
 </button>
 <!-- Approve Button -->
-<button class="px-space-lg py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-1.5 shadow-md" onclick="alert('Verification registered! Official resolution certificate generated and stored in ledger.'); closeVerificationModal();" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link">
+<button class="px-space-lg py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-1.5 shadow-md" onclick="alert('Verification registered! Official resolution certificate generated and stored in ledger.'); closeVerificationModal();">
 <span class="material-symbols-outlined text-[18px] text-secondary-fixed">verified</span>
 <span class="">Approve &amp; Close Ticket</span>
 </button>
