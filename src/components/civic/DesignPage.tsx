@@ -20,13 +20,15 @@ export function DesignPage({ html, script, variant = "citizen", backTo, backLabe
     if (!script) return;
     const el = document.createElement("script");
     el.type = "text/javascript";
-    el.text = script;
+    // Some design scripts reference optional elements; keep failures contained.
+    el.text = `try{\n${script}\n}catch(e){console.debug("design script skipped",e)}`;
     document.body.appendChild(el);
     document.dispatchEvent(new Event("DOMContentLoaded"));
     return () => {
       el.remove();
     };
   }, [script]);
+
 
   const onClick = (event: MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement | null;
