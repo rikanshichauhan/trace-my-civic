@@ -1,0 +1,691 @@
+<div class="flex flex-col w-full">
+<!-- Interactive script to sync header active navigation and handle filtering / modals -->
+
+<!-- Notification Toast Container -->
+<div class="hidden fixed bottom-6 right-6 z-50 flex items-center gap-space-sm bg-primary text-on-primary px-space-md py-space-sm rounded-lg shadow-xl transition-all" id="toast-notice">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">download_done</span>
+<span class="font-body-sm text-body-sm font-medium" id="toast-text"></span>
+</div>
+<div class="max-w-7xl mx-auto px-margin w-full pb-space-xl">
+<!-- PAGE HEADER & CITIZEN CONTEXT -->
+<div class="pt-space-md pb-space-lg flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="space-y-space-xs max-w-3xl">
+<div class="inline-flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant font-medium tracking-wide">CITIZEN PORTAL • RECORD HOLDER: CT-4091</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">
+          My Reported Complaints
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          Track your reported civic issues, inspect resolution proof submitted by municipal officers, and verify completed work. Only your personal grievances and official logs are displayed here.
+        </p>
+</div>
+<!-- Privacy Protection Badge Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-start gap-space-sm max-w-sm shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">lock</span>
+<div>
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider block">Citizen Privacy Protected</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Only your verified account credentials can access, review, and confirm municipal works logged under your token.
+          </p>
+</div>
+</div>
+</div>
+<!-- SUMMARY METRIC TILES -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md mb-space-lg">
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Filed</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">assignment</span>
+</div>
+<div class="mt-space-sm">
+<span class="font-headline-xl text-headline-xl text-primary">04</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1">Ghaziabad NCR</span>
+</div>
+</div>
+<div class="bg-tertiary-fixed p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-tertiary-fixed uppercase tracking-wider font-semibold">Action Required</span>
+<span class="material-symbols-outlined text-on-tertiary-fixed text-[20px]">pending_actions</span>
+</div>
+<div class="mt-space-sm">
+<span class="font-headline-xl text-headline-xl text-on-tertiary-fixed">01</span>
+<span class="font-body-sm text-body-sm text-on-tertiary-fixed font-medium ml-1">Your Approval Needed</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Teams</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">engineering</span>
+</div>
+<div class="mt-space-sm">
+<span class="font-headline-xl text-headline-xl text-primary">01</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1">On-Site Dispatch</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Resolved Rate</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">task_alt</span>
+</div>
+<div class="mt-space-sm flex items-baseline">
+<span class="font-headline-xl text-headline-xl text-secondary">75%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-2">Verified closed</span>
+</div>
+</div>
+</div>
+<!-- FILTER TABS & SEARCH BAR -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm mb-space-lg flex flex-col lg:flex-row items-center justify-between gap-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs w-full lg:w-auto">
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-primary text-on-primary shadow-sm flex items-center gap-1.5" onclick="filterComplaints('all', this)" data-route="/my-complaints" role="link" data-route="/my-complaints" role="link" data-route="/my-complaints" role="link">
+<span class="">All Complaints</span>
+<span class="font-code-sm text-code-sm opacity-90 px-1.5 py-0.2 rounded bg-surface-container-high/20">4</span>
+</button>
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" onclick="filterComplaints('action-required', this)">
+<span class="">Action Required</span>
+<span class="inline-flex items-center justify-center font-code-sm text-code-sm bg-error text-on-error px-1.5 py-0.5 rounded-full text-[10px] leading-tight font-bold">1</span>
+</button>
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" onclick="filterComplaints('in-progress', this)">
+<span class="">In Progress</span>
+<span class="font-code-sm text-code-sm opacity-80 px-1.5 py-0.2 rounded bg-surface-container-high/40">1</span>
+</button>
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" onclick="filterComplaints('resolved', this)">
+<span class="">Resolved</span>
+<span class="font-code-sm text-code-sm opacity-80 px-1.5 py-0.2 rounded bg-surface-container-high/40">1</span>
+</button>
+<button class="filter-tab-btn px-space-md py-space-sm rounded font-label-md text-label-md uppercase tracking-wider transition-all bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" onclick="filterComplaints('reopened', this)" data-route="/reopen" role="link" data-route="/reopen" role="link" data-route="/reopen" role="link">
+<span class="">Reopened</span>
+<span class="font-code-sm text-code-sm opacity-80 px-1.5 py-0.2 rounded bg-surface-container-high/40">1</span>
+</button>
+</div>
+<!-- Quick Search / Sort -->
+<div class="flex items-center gap-space-sm w-full lg:w-auto justify-end">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low rounded text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container-lowest" placeholder="Search by ID or street..." type="text">
+</div>
+<div class="hidden sm:flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+<span class="">Sort: Newest First</span>
+</div>
+</div>
+</div>
+<!-- COMPLAINTS LIST -->
+<div class="flex flex-col gap-space-lg">
+<!-- ================= CARD 1: ACTION REQUIRED ================= -->
+<div class="complaint-card bg-surface-container-lowest rounded-lg shadow-md overflow-hidden transition-all" data-status="action-required">
+<!-- Top Priority Strip with Attention Indicator -->
+<div class="bg-tertiary-fixed px-space-md py-space-xs flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-error text-[20px] animate-pulse">priority_high</span>
+<span class="font-label-md text-label-md text-on-tertiary-fixed font-bold tracking-wide uppercase">
+              Action Required — Officer Proof Submitted For Citizen Approval
+            </span>
+</div>
+<span class="font-code-sm text-code-sm text-on-tertiary-fixed font-semibold">
+            Auto-confirmation in 48 hours if uncontested
+          </span>
+</div>
+<div class="p-space-lg flex flex-col lg:flex-row gap-space-lg">
+<!-- Left Main Details Column -->
+<div class="flex-1 flex flex-col justify-between space-y-space-md">
+<div>
+<div class="flex flex-wrap items-center gap-space-xs mb-space-xs">
+<span class="font-code-sm text-code-sm text-primary font-bold bg-surface-container-high px-2 py-0.5 rounded">
+                  #CT-GZB-8821
+                </span>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded uppercase font-semibold">
+                  High Priority
+                </span>
+<span class="text-on-surface-variant font-code-sm text-code-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                  Reported 20 Oct 2024, 09:15 AM
+                </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+                Deep Road Pothole &amp; Damaged Surface
+              </h2>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
+<span class="font-medium text-on-surface">Khora Colony, Sector 62 Border, Ghaziabad, Uttar Pradesh</span>
+<span class="text-outline font-code-sm text-code-sm">(28.6258° N, 77.3621° E)</span>
+</div>
+<!-- Officer Note & SLA Summary -->
+<div class="mt-space-md p-space-md bg-surface-container-low rounded-lg space-y-space-xs">
+<div class="flex items-center justify-between text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Department Assignment</span>
+<span class="font-label-md text-label-md text-primary font-semibold">Public Works Department (Roads Division)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Assigned Field Officer</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">JE Rajesh Sharma (PWD Field Squad 04)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Turnaround Performance</span>
+<span class="inline-flex items-center gap-1 text-secondary font-code-sm text-code-sm font-semibold">
+<span class="material-symbols-outlined text-[15px]">bolt</span> Completed in 4 days (Expected SLA: 7 days)
+                  </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface pt-space-xs border-t border-surface-container-high/40">
+<span class="font-semibold text-primary">Officer Note:</span> "Roadway excavation refilled with grade-1 aggregate"
+                </p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="pt-space-sm flex flex-wrap items-center gap-space-sm">
+<button class="px-space-md py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-space-xs shadow-sm" onclick="openVerificationModal()" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">fact_check</span>
+<span class="">Verify Resolution Proof</span>
+</button>
+<button class="px-space-md py-space-sm rounded bg-surface-container-low text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-8821')" data-route="/timeline" role="link" data-route="/timeline" role="link" data-route="/timeline" role="link">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="">View Full Timeline</span>
+</button>
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-8821')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span class="">Official Report</span>
+</button>
+</div>
+</div>
+<!-- Right Visual Proof Comparison Block -->
+<div class="lg:w-96 flex flex-col justify-between bg-surface-container-low p-space-sm rounded-lg shrink-0">
+<div class="flex items-center justify-between pb-space-xs px-1">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-primary">Submitted Photographic Proof</span>
+<span class="font-code-sm text-code-sm text-secondary font-medium">GPS Authenticated</span>
+</div>
+<!-- Side by side thumbnails -->
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Before image container -->
+<div class="relative group rounded overflow-hidden bg-primary">
+<img class="w-full h-36 object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="Real photo of a severely damaged road with a wide deep puddle crater filled with murky water, broken red bricks, and rubble on a crowded, busy street in Khora Colony, Ghaziabad, Uttar Pradesh, with auto-rickshaws, pedestrians, and low-rise commercial shop buildings in daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA876e3pBuEi9APp7TcDsmwAAhPOsB14QR-3KtecRlU6fWFoiNW8juIcXEJtw41OmxjKbFT3xM4q5pdJ1zBsJZyW7aPuhX5EBaC5EPl40pRWjS3do0BZrdI_dcPiwwKA8_IENkiqfsGFHi5wWSvLIGV45XyLhNSwn83WaG_muT6bYrqVZ0aqUUwcPxbpnaNwjtq8uU8El6QZd45CC7q-dPTeLaSx-uOf5YqbN38zdfo3Wm_jjo04tSBsA">
+<div class="absolute top-1.5 left-1.5 bg-primary/90 text-on-primary text-[10px] font-code-sm px-1.5 py-0.5 rounded uppercase font-semibold">
+                  Original Report
+                </div>
+<div class="absolute bottom-1 right-1.5 text-on-primary font-code-sm text-[10px] drop-shadow">
+                  20 Oct 09:15
+                </div>
+</div>
+<!-- After image container -->
+<div class="relative group rounded overflow-hidden bg-primary">
+<img class="w-full h-36 object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="Real photo of the exact same Indian market street in Ghaziabad after municipal repair work, showing a freshly laid, smooth, rectangular patch of dark black hot-mix asphalt and bitumen covering the entire damaged zone, with two municipal workers in bright safety vests holding rakes and shovels nearby and traffic flowing smoothly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPFlrRAKxzOo1WT-B8wf1l_jOy6jjQiLQLJN_HWqJ8oiQC-fDxvrCFjIY1BsUP-ML-yj-QC3VgWoHhdRBGYvGLcAySXXL6RYLlz-8QOBpqq6YzzGCWlGgXnMaCtt8ZeWCMp3yZ4fITpRcWYEpc1Qgkye7iz5vcniZsMTsthbKF6hIEzP2Y3_DB3ZQ4hG8-jGISoUJzoZp7MO-_dRKz_17K_bYgJkdIWtPZ7oPeCB3-JIgzc0PnL0T4mQ">
+<div class="absolute top-1.5 left-1.5 bg-secondary text-on-secondary text-[10px] font-code-sm px-1.5 py-0.5 rounded uppercase font-semibold">
+                  Repaired State
+                </div>
+<div class="absolute bottom-1 right-1.5 text-on-primary font-code-sm text-[10px] drop-shadow">
+                  24 Oct 14:30
+                </div>
+</div>
+</div>
+<!-- Verification Action Reminder -->
+<div class="mt-space-sm bg-surface-container-lowest p-space-xs px-space-sm rounded flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tap to inspect resolution details</span>
+<button class="text-secondary font-label-md text-label-md hover:underline font-semibold" onclick="openVerificationModal()" data-route="/evidence" role="link" data-route="/evidence" role="link" data-route="/evidence" role="link">
+                Inspect 2 Photos →
+              </button>
+</div>
+</div>
+</div>
+<!-- COLLAPSIBLE AUDIT TIMELINE DRAWER FOR #CT-GZB-8821 -->
+<div class="hidden bg-surface-container-low px-space-lg py-space-md" id="drawer-8821">
+<div class="flex items-center justify-between pb-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">timeline</span>
+              Municipal Action Ledger &amp; Timestamp Record
+            </h3>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Registry Key: GZB-PWD-2024-X49</span>
+</div>
+<div class="space-y-space-md pl-2 pt-space-xs relative before:absolute before:left-3.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-high">
+<!-- Event 1 -->
+<div class="relative flex items-start gap-space-md pl-6">
+<span class="absolute left-1.5 top-1 w-4 h-4 rounded-full bg-secondary flex items-center justify-center ring-4 ring-surface-container-low">
+<span class="material-symbols-outlined text-on-secondary text-[10px]">check</span>
+</span>
+<div class="flex-1 bg-surface-container-lowest p-space-sm rounded">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Resolution Evidence Uploaded</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">24 Oct 2024, 02:30 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  JE Rajesh Sharma uploaded completion geotagged photographs with asphalt batch receipt. System status updated to Citizen Verification Pending.
+                </p>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="relative flex items-start gap-space-md pl-6">
+<span class="absolute left-1.5 top-1 w-4 h-4 rounded-full bg-primary flex items-center justify-center ring-4 ring-surface-container-low">
+<span class="material-symbols-outlined text-on-primary text-[10px]">build</span>
+</span>
+<div class="flex-1 bg-surface-container-lowest p-space-sm rounded">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Repair Crew Dispatched on Site</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">22 Oct 2024, 11:00 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Road roller and paving crew deployed. Gravel sub-base leveled.
+                </p>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="relative flex items-start gap-space-md pl-6">
+<span class="absolute left-1.5 top-1 w-4 h-4 rounded-full bg-on-surface-variant flex items-center justify-center ring-4 ring-surface-container-low">
+<span class="material-symbols-outlined text-surface text-[10px]">flag</span>
+</span>
+<div class="flex-1 bg-surface-container-lowest p-space-sm rounded">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Complaint Registered &amp; PWD Triage</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">20 Oct 2024, 09:15 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Report filed by Citizen #CT-4091. Priority marked as High due to heavy school van and two-wheeler traffic route.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= CARD 2: IN PROGRESS ================= -->
+<div class="complaint-card bg-surface-container-lowest rounded-lg shadow-sm p-space-lg" data-status="in-progress">
+<div class="flex flex-col lg:flex-row items-start justify-between gap-space-lg">
+<div class="flex-1 space-y-space-md">
+<div>
+<div class="flex flex-wrap items-center gap-space-xs mb-space-xs">
+<span class="font-code-sm text-code-sm text-primary font-bold bg-surface-container-high px-2 py-0.5 rounded">
+                  #CT-GZB-9104
+                </span>
+<span class="bg-surface-container-high text-primary font-label-sm text-label-sm px-2 py-0.5 rounded uppercase font-semibold">
+                  Medium Priority
+                </span>
+<span class="bg-primary text-on-primary font-label-sm text-label-sm px-2.5 py-0.5 rounded font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-ping"></span>
+                  Work In Progress
+                </span>
+<span class="text-on-surface-variant font-code-sm text-code-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                  Reported 23 Oct 2024, 07:30 PM
+                </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+                Broken &amp; Flickering Streetlight on Main Alley
+              </h2>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
+<span class="font-medium text-on-surface">Nyay Khand 1, Indirapuram, Ghaziabad, Uttar Pradesh</span>
+<span class="text-outline font-code-sm text-code-sm">(Pole ID: NK1-LT-88)</span>
+</div>
+<div class="mt-space-md p-space-md bg-surface-container-low rounded-lg grid grid-cols-1 md:grid-cols-3 gap-space-sm text-body-sm">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase block">Department</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Electricity &amp; Public Lighting Wing</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase block">Assigned Officer</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Lineman Suresh Kumar (Substation 12)</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase block">Resolution SLA</span>
+<span class="font-code-sm text-code-sm text-primary font-semibold">About 2–4 days (18 hours remaining)</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm">
+<span class="font-semibold text-on-surface">Operational Status:</span> Work order issued.</p>
+</div>
+<!-- Progress Bar Visualization -->
+
+<!-- Actions -->
+<div class="pt-space-xs flex flex-wrap items-center gap-space-sm">
+<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-9104')" data-route="/timeline" role="link" data-route="/timeline" role="link" data-route="/timeline" role="link">
+<span class="material-symbols-outlined text-[18px]">timeline</span>
+<span class="">View Details &amp; Timeline</span>
+</button>
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-9104')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Download Report</span>
+</button>
+</div>
+</div>
+<!-- Right Inspection Thumbnail -->
+<div class="lg:w-72 bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between shrink-0">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-primary">Reported Attachment</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Night capture</span>
+</div>
+<div class="relative rounded overflow-hidden bg-primary">
+<img class="w-full h-32 object-cover opacity-90" data-alt="Close-up night photo of a dark residential street corner in Indirapuram, Ghaziabad, showing an electric pole with a dead, dark streetlight head with loose black wiring against a dim evening sky and quiet residential townhouses." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh5aeDyz_iUccWyBwYww7duMJqf42-31cpnUrm1oHKbq2tfE8WV9QjdJkQAgz5WYk3SRG21ntyn9hUFpUTF12q5PnzgY6nE5upgo85d-zy2gG93kaSIRkm_bHW07VUOD6kbSsDJiCv8lVP8p3w-vqbEJpQTX1RKt57m-4w0HycGLY4K5QGpPXtr1V-LRAPs7Ss7OqPGQNCTbq9e7Rs9vfV3Ain7LwQaH_U4X492a3h1DwfTtsqjuZfsw">
+<div class="absolute bottom-1 right-2 text-on-primary font-code-sm text-[10px]">
+                Citizen Upload
+              </div>
+</div>
+<div class="mt-space-sm p-space-xs bg-surface-container-lowest rounded text-center">
+<span class="font-code-sm text-code-sm text-on-surface-variant">Estimated Closure: 25 Oct 2024</span>
+</div>
+</div>
+</div>
+<!-- Hidden Timeline for #CT-GZB-9104 -->
+<div class="hidden mt-space-md pt-space-md border-t border-surface-container-high" id="drawer-9104">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-space-sm">Dispatch Log</h3>
+<div class="space-y-space-sm font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center justify-between bg-surface-container-low p-space-sm rounded">
+<span class="">Lineman Suresh Kumar accepted assignment from Indirapuram Substation.</span>
+<span class="font-code-sm text-code-sm text-primary">24 Oct, 08:30 AM</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low p-space-sm rounded">
+<span class="">Automated fault diagnostic flagged low voltage circuit trip.</span>
+<span class="font-code-sm text-code-sm text-primary">23 Oct, 09:10 PM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= CARD 3: RESOLVED & VERIFIED ================= -->
+<div class="complaint-card bg-surface-container-lowest rounded-lg shadow-sm p-space-lg" data-status="resolved">
+<div class="flex flex-col lg:flex-row items-start justify-between gap-space-lg">
+<div class="flex-1 space-y-space-md">
+<div>
+<div class="flex flex-wrap items-center gap-space-xs mb-space-xs">
+<span class="font-code-sm text-code-sm text-primary font-bold bg-surface-container-high px-2 py-0.5 rounded">
+                  #CT-GZB-7419
+                </span>
+<span class="bg-surface-container-high text-primary font-label-sm text-label-sm px-2 py-0.5 rounded uppercase font-semibold">
+                  Medium Priority
+                </span>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2.5 py-0.5 rounded font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+                  Resolved &amp; Citizen Verified
+                </span>
+<span class="text-on-surface-variant font-code-sm text-code-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                  Reported 14 Oct 2024, 08:00 AM
+                </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+                Overflowing Municipal Garbage Dumpster
+              </h2>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
+<span class="font-medium text-on-surface">Sector 4 Market Road, Vaishali, Ghaziabad, Uttar Pradesh</span>
+</div>
+<div class="mt-space-md p-space-md bg-surface-container-low rounded-lg grid grid-cols-1 md:grid-cols-3 gap-space-sm text-body-sm">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase block">Department</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Municipal Sanitation &amp; Waste Management</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase block">Resolution Speed</span>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">Resolved in 36 hours</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase block">Verified By</span>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">You (Citizen #CT-4091) on Oct 16</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm">
+<span class="font-semibold text-secondary">Citizen Confirmation:</span> "Dumpster cleared,."
+              </p>
+</div>
+<!-- Actions -->
+<div class="pt-space-xs flex flex-wrap items-center gap-space-sm">
+<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-7419')">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span class="">View Resolved Case File</span>
+</button>
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-7419')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span class="">Download Official Certificate</span>
+</button>
+</div>
+</div>
+<!-- Right Resolved Stamp & Thumbnail -->
+<div class="lg:w-72 bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between shrink-0">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-secondary">Inspection Verified</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Closed 16 Oct</span>
+</div>
+<div class="relative rounded overflow-hidden bg-primary">
+<img class="w-full h-32 object-cover" data-alt="Clear daytime photograph of a pristine, thoroughly cleaned concrete municipal waste disposal area on a market street in Vaishali Ghaziabad, with an emptied large green metal dumpster, swept curbside, and white lime disinfectant powder marked around the perimeter." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA9XXs9lKyG1zrhA0weJNVI4dB5NmdCWItd3qrf1yFcJL49liFeivitV9J-wK_7Jsvkq4Jy3TKCOA2Taz3OgbnZDXTdqNQONopsoKE3KJZxANZKwTC606XByPS4XY5yex1qzeyEDr_Ms8vly-FVq9ovUSRXHCFnRCdaJ9tExUjEdB8lSXvGLfbqoeLkh2K5nKylcChumGxFyaTk_l1ytOVyxPZf9uEqcWAXb_zm_2yllMQhR_-5ZQRHQ">
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
+<span class="bg-secondary text-on-secondary px-3 py-1 rounded text-code-sm font-bold flex items-center gap-1 shadow">
+<span class="material-symbols-outlined text-[16px]">verified</span> VERIFIED
+                </span>
+</div>
+</div>
+<div class="mt-space-sm p-space-xs bg-surface-container-lowest rounded text-center">
+<span class="font-code-sm text-code-sm text-secondary font-medium">Archived to Public Open Ledger</span>
+</div>
+</div>
+</div>
+<!-- Collapsible File 7419 -->
+<div class="hidden mt-space-md pt-space-md border-t border-surface-container-high" id="drawer-7419">
+<div class="bg-surface-container-low p-space-md rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Official Municipal Resolution Certificate</span>
+<span class="font-code-sm text-code-sm text-secondary font-bold">SHA-256 SIGNED BY NAGAR NIGAM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              All debris evacuated to designated Ghazipur processing facility. Complainant was provided verification link via SMS and authenticated on 16 Oct 2024 at 03:45 PM. No secondary grievance filed within 14 days statutory appeal window. Case permanently archived.
+            </p>
+</div>
+</div>
+</div>
+<!-- ================= CARD 4: REOPENED ================= -->
+<div class="complaint-card bg-surface-container-lowest rounded-lg shadow-sm p-space-lg" data-status="reopened">
+<div class="flex flex-col lg:flex-row items-start justify-between gap-space-lg">
+<div class="flex-1 space-y-space-md">
+<div>
+<div class="flex flex-wrap items-center gap-space-xs mb-space-xs">
+<span class="font-code-sm text-code-sm text-primary font-bold bg-surface-container-high px-2 py-0.5 rounded">
+                  #CT-GZB-6950
+                </span>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded uppercase font-semibold">
+                  High Priority
+                </span>
+<span class="bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-2.5 py-0.5 rounded font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+                  Reopened — Work Incomplete
+                </span>
+<span class="text-on-surface-variant font-code-sm text-code-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                  Reported 08 Oct 2024
+                </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+                Choked Drainage &amp; Sewage Water Overflow
+              </h2>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-1">
+<span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
+<span class="font-medium text-on-surface">Brij Vihar, Near Railway Crossing, Ghaziabad, Uttar Pradesh</span>
+</div>
+<div class="mt-space-md p-space-md bg-error-container/30 rounded-lg space-y-space-xs">
+<div class="flex flex-wrap items-center justify-between text-body-sm gap-2">
+<span class="font-label-md text-label-md text-on-error-container uppercase font-bold">Department Escalation</span>
+<span class="font-body-sm text-body-sm text-error font-bold">Escalated to Executive Engineer (Grievance Cell)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Department</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Jal Sansthan (Water &amp; Sewage Board)</span>
+</div>
+<div class="pt-space-xs border-t border-error-container">
+<p class="font-body-sm text-body-sm text-on-surface">
+<span class="font-bold text-error">Reason For Reopening (Citizen Rejection):</span> "Silt was cleared from surface grate, but underground trunk pipe is completely blocked with construction debris, causing dark sewage backflow onto the railway approach road again."
+                  </p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-space-xs flex flex-wrap items-center gap-space-sm">
+<button class="px-space-md py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-6950')">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">crisis_alert</span>
+<span class="">View Escalated Details</span>
+</button>
+<button class="px-space-md py-space-sm rounded bg-surface-container text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleTimelineDrawer('drawer-6950')" data-route="/reopen" role="link" data-route="/reopen" role="link" data-route="/reopen" role="link">
+<span class="material-symbols-outlined text-[18px]">alt_route</span>
+<span class="">Track Reopened Timeline</span>
+</button>
+<button class="px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-space-xs" onclick="triggerDownloadNotice('#CT-GZB-6950')" data-route="/official-report" role="link" data-route="/official-report" role="link" data-route="/official-report" role="link">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Download Report</span>
+</button>
+</div>
+</div>
+<!-- Right Visual Proof of Incomplete Work -->
+<div class="lg:w-72 bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between shrink-0">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-error">Evidence of Defect</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Reopened 18 Oct</span>
+</div>
+<div class="relative rounded overflow-hidden bg-primary">
+<img class="w-full h-32 object-cover" data-alt="Photo of flooded street corner in Brij Vihar, Ghaziabad near railway lines with murky dark sewage water overflowing from a roadside storm sewer drain cover, showing unfinished municipal dredging and wet muddy street surface in cloudy afternoon light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHPXR6t22beW5IBLIdnS3poOrvom9O2gca3tbT_YKqM1HazgTKwYMWPadX1hVMTX6k5pfheOHeDGrjx59Hr5o46Qi6BQEHblXHbN8PedYtOo9EbRtcc4IRgnZgOlC4vD-3uVFunaBA8pagm11CFjWLNwL-BXY5nHmvDh5AFeJBP_aOJhEf0EIgvMb-miBxa2X9QnW73jIBqjN4_bCOB3mjXBQWFuOTDGhWqy_VVoFLVdKor1fsLiF0WA">
+<div class="absolute bottom-1 right-2 bg-error text-on-error font-code-sm text-[10px] px-1.5 py-0.5 rounded">
+                Unresolved Proof
+              </div>
+</div>
+<div class="mt-space-sm p-space-xs bg-surface-container-lowest rounded text-center">
+<span class="font-code-sm text-code-sm text-error font-semibold">Priority SLA Reset: Under Review</span>
+</div>
+</div>
+</div>
+<!-- Drawer for #CT-GZB-6950 -->
+<div class="hidden mt-space-md pt-space-md border-t border-surface-container-high" id="drawer-6950">
+<div class="bg-surface-container-low p-space-md rounded-lg space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">Senior Municipal Ombudsman Intervention</span>
+<span class="font-code-sm text-code-sm bg-error-container text-on-error-container px-2 py-0.5 rounded font-bold">ESCALATION TIER 2</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Since citizen rejected the initial resolution on grounds of incomplete drainage de-silting, this ticket bypassed local junior engineers and was assigned to Chief Executive Engineer (Drainage, Zone 3). A super-sucker hydraulic suction machine has been requisitioned for deployment.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- CITIZEN VERIFICATION MANDATE EXPLANATION & HELP BANNER -->
+
+</div>
+<!-- EVIDENCE VERIFICATION & APPROVAL MODAL (For Card 1) -->
+<div class="hidden fixed inset-0 z-50 overflow-y-auto bg-primary/60 backdrop-blur-sm flex items-center justify-center p-4" id="verification-modal">
+<div class="bg-surface-container-lowest max-w-4xl w-full rounded-lg shadow-2xl overflow-hidden flex flex-col my-8">
+<!-- Modal Header -->
+<div class="bg-primary text-on-primary px-space-lg py-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-[24px]">fact_check</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-primary">Inspect Resolution Evidence</h3>
+<span class="font-code-sm text-code-sm text-on-primary-container">Complaint ID: #CT-GZB-8821 • Khora Colony Road Repair</span>
+</div>
+</div>
+<button class="text-on-primary hover:text-secondary-fixed p-1 rounded" onclick="closeVerificationModal()">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-lg space-y-space-lg overflow-y-auto max-h-[75vh]">
+<!-- Instruction Banner -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">info</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-primary">Your Citizen Approval Closes This Case</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Compare the original reported condition against the newly repaired road work submitted by JE Rajesh Sharma. If the pothole has been fully paved and leveled, click "Approve &amp; Close Ticket". If incomplete or sub-standard, click "Reject &amp; Reopen".
+            </p>
+</div>
+</div>
+<!-- High Resolution Comparison Split View -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Before Photo Column -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-md text-label-md text-error font-bold uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span> BEFORE REPAIR
+              </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">20 Oct 2024, 09:15 AM</span>
+</div>
+<div class="relative rounded overflow-hidden bg-primary mb-space-xs">
+<img class="w-full h-64 object-cover" data-alt="High quality detailed inspection photo of deep street crater filled with dirty water and broken red brick rubble in Khora Colony Ghaziabad, taken from ground level with bustling Indian roadside shops and auto-rickshaws in background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpsd9uxlLOVnh0YNODVDDWa86gxPZt_CPy7k0ubo-5sQXH-3mdpCdhjMjiTRHBAP0IrD0PoVOEDHSD7dmB-uCAAoOD03pUneay0NbxlGZd0xYx7STOf0imxF6iB2czSrK-aFqU6r5ENaGRJzXcG28cKZ1eWkywYi73aAYAvrXo7-B63LrDR-NX7b-bEszw2Hijb0c3nVvvUiTizSZICYyYLgIfIIczBN4I8lC00Mzm3HqT7iTUWEH2mQ">
+</div>
+<div class="space-y-1 font-body-sm text-body-sm text-on-surface-variant bg-surface-container-lowest p-space-xs rounded">
+<div class="flex justify-between">
+<span class="">Location Tag:</span>
+<span class="font-code-sm text-code-sm text-on-surface">Khora Sector 62 Border</span>
+</div>
+<div class="flex justify-between">
+<span class="">Citizen Reporter:</span>
+<span class="font-code-sm text-code-sm text-on-surface">Verified ID #CT-4091</span>
+</div>
+</div>
+</div>
+<!-- After Photo Column -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-md text-label-md text-secondary font-bold uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> AFTER MUNICIPAL REPAIR
+              </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">24 Oct 2024, 02:30 PM</span>
+</div>
+<div class="relative rounded overflow-hidden bg-primary mb-space-xs">
+<img class="w-full h-64 object-cover" data-alt="High resolution detailed verification photo showing the freshly paved smooth dark black asphalt patch on the same road in Khora Colony Ghaziabad, fully leveled with no standing water, workers with safety gear finishing borders and road traffic restored." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwHX3L8XG3-4bWvicBeu-XhQJjga3TMvavRrcWmQ-ey67zxCzzLSsjyovFYk56pk9H411VAAySFH4WoV8ijYD7q8nn6wTiEJnDkoaSz7gthK9kt5l939Nnz9tUBp68yt_pZtbJclsFhCcCb5e-iQyON3xleXGOHMqA2tCB6ZoCBiHpMvJ1CVLs8ypMIbwii5VaiVGRoX4JAvcCZChAgwsC98YPmB4O06OKyaN2QsQb75hhmV8L_8RHlA">
+</div>
+<div class="space-y-1 font-body-sm text-body-sm text-on-surface-variant bg-surface-container-lowest p-space-xs rounded">
+<div class="flex justify-between">
+<span class="">Officer:</span>
+<span class="font-code-sm text-code-sm text-on-surface">JE Rajesh Sharma (PWD-04)</span>
+</div>
+<div class="flex justify-between">
+<span class="">Bitumen Spec:</span>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">VG-30 Hot Mix (40mm)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Citizen Quality Feedback Radio Options -->
+<div class="space-y-space-sm bg-surface-container-low p-space-md rounded-lg">
+<span class="font-label-md text-label-md text-primary uppercase font-bold tracking-wide">
+            How would you rate the quality of repair?
+          </span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+<label class="flex items-center gap-space-sm p-space-sm bg-surface-container-lowest rounded cursor-pointer hover:bg-surface-container">
+<input checked="" class="accent-primary w-4 h-4" name="quality-rating" type="radio">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold block">Fully Satisfied</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Road is level and safe</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm bg-surface-container-lowest rounded cursor-pointer hover:bg-surface-container">
+<input class="accent-primary w-4 h-4" name="quality-rating" type="radio">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface font-semibold block">Acceptable</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Minor edges uneven</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm bg-surface-container-lowest rounded cursor-pointer hover:bg-surface-container">
+<input class="accent-primary w-4 h-4" name="quality-rating" type="radio">
+<div>
+<span class="font-body-sm text-body-sm text-error font-semibold block">Unacceptable</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Work is defective/incomplete</span>
+</div>
+</label>
+</div>
+<div class="mt-space-xs">
+<textarea class="w-full p-2 bg-surface-container-lowest rounded text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none" placeholder="Optional comment for municipal inspection logs (e.g. 'Good paving, please ensure curbside rubble is cleared')..." rows="2"></textarea>
+</div>
+</div>
+</div>
+<!-- Modal Actions Footer -->
+<div class="bg-surface-container-low px-space-lg py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<button class="w-full sm:w-auto px-space-md py-space-sm rounded bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md uppercase tracking-wider hover:text-on-surface" onclick="closeVerificationModal()">
+          Close Preview
+        </button>
+<div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+<!-- Reopen Button -->
+<button class="px-space-md py-space-sm rounded bg-tertiary-container text-on-tertiary-container font-label-md text-label-md uppercase tracking-wider hover:opacity-95 transition-all flex items-center gap-1" onclick="alert('Ticket flagged for non-resolution. Escalating to PWD Executive Engineer.'); closeVerificationModal();" data-route="/reopen" role="link" data-route="/reopen" role="link" data-route="/reopen" role="link">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span class="">Reject &amp; Reopen</span>
+</button>
+<!-- Approve Button -->
+<button class="px-space-lg py-space-sm rounded bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-all flex items-center gap-1.5 shadow-md" onclick="alert('Verification registered! Official resolution certificate generated and stored in ledger.'); closeVerificationModal();" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link" data-route="/verify-proof" role="link">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">verified</span>
+<span class="">Approve &amp; Close Ticket</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
