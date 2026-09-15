@@ -16,6 +16,7 @@ import { Route as GovernmentRouteImport } from './routes/government'
 import { Route as MyComplaintsRouteImport } from './routes/my-complaints'
 import { Route as OfficialReportRouteImport } from './routes/official-report'
 import { Route as ReopenRouteImport } from './routes/reopen'
+import { Route as ReportIssueRouteImport } from './routes/report-issue'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as VerifyProofRouteImport } from './routes/verify-proof'
 
@@ -54,6 +55,11 @@ const ReopenRoute = ReopenRouteImport.update({
   path: '/reopen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportIssueRoute = ReportIssueRouteImport.update({
+  id: '/report-issue',
+  path: '/report-issue',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/my-complaints': typeof MyComplaintsRoute
   '/official-report': typeof OfficialReportRoute
   '/reopen': typeof ReopenRoute
+  '/report-issue': typeof ReportIssueRoute
   '/timeline': typeof TimelineRoute
   '/verify-proof': typeof VerifyProofRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/my-complaints': typeof MyComplaintsRoute
   '/official-report': typeof OfficialReportRoute
   '/reopen': typeof ReopenRoute
+  '/report-issue': typeof ReportIssueRoute
   '/timeline': typeof TimelineRoute
   '/verify-proof': typeof VerifyProofRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/my-complaints': typeof MyComplaintsRoute
   '/official-report': typeof OfficialReportRoute
   '/reopen': typeof ReopenRoute
+  '/report-issue': typeof ReportIssueRoute
   '/timeline': typeof TimelineRoute
   '/verify-proof': typeof VerifyProofRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/my-complaints'
     | '/official-report'
     | '/reopen'
+    | '/report-issue'
     | '/timeline'
     | '/verify-proof'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/my-complaints'
     | '/official-report'
     | '/reopen'
+    | '/report-issue'
     | '/timeline'
     | '/verify-proof'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/my-complaints'
     | '/official-report'
     | '/reopen'
+    | '/report-issue'
     | '/timeline'
     | '/verify-proof'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   MyComplaintsRoute: typeof MyComplaintsRoute
   OfficialReportRoute: typeof OfficialReportRoute
   ReopenRoute: typeof ReopenRoute
+  ReportIssueRoute: typeof ReportIssueRoute
   TimelineRoute: typeof TimelineRoute
   VerifyProofRoute: typeof VerifyProofRoute
 }
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReopenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/report-issue': {
+      id: '/report-issue'
+      path: '/report-issue'
+      fullPath: '/report-issue'
+      preLoaderRoute: typeof ReportIssueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/timeline': {
       id: '/timeline'
       path: '/timeline'
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyComplaintsRoute: MyComplaintsRoute,
   OfficialReportRoute: OfficialReportRoute,
   ReopenRoute: ReopenRoute,
+  ReportIssueRoute: ReportIssueRoute,
   TimelineRoute: TimelineRoute,
   VerifyProofRoute: VerifyProofRoute,
 }
